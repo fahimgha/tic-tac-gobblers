@@ -35,6 +35,13 @@ body {
   justify-content: center;
   font-size: 35px;
 }
+
+.Game {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 80px;
+}
 /* Board Components  */
 .board {
   display: grid;
@@ -45,8 +52,6 @@ body {
   max-width: 460px;
   height: 460px;
   gap: 18px;
-  margin-top: 80px;
-  margin-left: 80px;
 }
 /* Square Components  */
 .square {
@@ -57,4 +62,11 @@ body {
   min-height: 140px;
   border: 3px solid #646464;
   border-radius: 15px;
+}
+
+/* test */
+.page {
+  border: 1px solid red;
+  width: 100px;
+  height: 100px;
 }
