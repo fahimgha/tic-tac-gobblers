@@ -1,16 +1,29 @@
 import { useState } from "react";
 import Square from "./Square";
-
+import Gobblet from "./Gobblet";
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
+
+  const [availableGobblets, setAvailableGobblets] = useState({
+    gobbletsNum: { small: 3, large: 3, giant: 3 },
+  });
 
   const handleOnDrop = (e, i) => {
     const nextSquares = squares.slice();
     const gobblet = e.dataTransfer.getData("gobblet");
 
-    nextSquares[i] = gobblet;
-    console.log("gobblet", gobblet);
-    setSquares(nextSquares);
+    if (availableGobblets.gobbletsNum[gobblet] > 0) {
+      const updateGobbletsNum = { ...availableGobblets.gobbletsNum };
+      updateGobbletsNum[gobblet] -= 1;
+
+      nextSquares[i] = gobblet;
+
+      setAvailableGobblets({
+        ...availableGobblets,
+        gobbletsNum: updateGobbletsNum,
+      });
+      setSquares(nextSquares);
+    }
   };
 
   const handleDragOver = (e) => {
@@ -18,18 +31,33 @@ function Board() {
   };
 
   return (
-    <div className="board">
-      <Square value={squares[0]} handleOnDrop={(e) => handleOnDrop(e, 0)} />
-      <Square value={squares[1]} handleOnDrop={(e) => handleOnDrop(e, 1)} />
-      <Square value={squares[2]} />
-
-      <Square value={squares[3]} />
-      <Square value={squares[4]} />
-      <Square value={squares[5]} />
-
-      <Square value={squares[6]} />
-      <Square value={squares[7]} />
-      <Square value={squares[8]} />
+    <div className="Game">
+      {/* square board */}
+      <div className="board">
+        {squares.map((_, index) => (
+          <Square
+            key={index}
+            value={squares[index]}
+            handleOnDrop={(e) => handleOnDrop(e, index)}
+            handleDragOver={handleDragOver}
+          />
+        ))}
+      </div>
+      {/* gobblet board */}
+      <div className="gobblet">
+        <h1 className="player-num">Player 1</h1>
+        <div className="gobblet-container">
+          {[...Array(availableGobblets.gobbletsNum.giant)].map((_, index) => (
+            <Gobblet key={index} gobbletSize="giant" />
+          ))}
+          {[...Array(availableGobblets.gobbletsNum.large)].map((_, index) => (
+            <Gobblet key={index} gobbletSize="large" />
+          ))}
+          {[...Array(availableGobblets.gobbletsNum.small)].map((_, index) => (
+            <Gobblet key={index} gobbletSize="small" />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
