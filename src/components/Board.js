@@ -3,10 +3,7 @@ import Square from "./Square";
 import Gobblet from "./Gobblet";
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
-
-  // const [availableGobblets, setAvailableGobblets] = useState({
-  //   gobbletsNum: { small: 3, large: 3, giant: 3 },
-  // });
+  const [playerOneTurn, setPlayerOneTurn] = useState("player1");
 
   const [availableGobblets, setAvailableGobblets] = useState({
     player1: { small: 3, large: 3, giant: 3 },
@@ -19,6 +16,9 @@ function Board() {
     const { player, gobblet } = JSON.parse(gobblets);
     const existingGobblet = nextSquares[i];
 
+    if (player !== playerOneTurn) {
+      return;
+    }
     if (!existingGobblet || existingGobblet.split("_")[1] > gobblet) {
       if (availableGobblets[player][gobblet] > 0) {
         const updateGobbletsNum = { ...availableGobblets };
@@ -31,9 +31,9 @@ function Board() {
           gobbletsNum: updateGobbletsNum,
         });
         setSquares(nextSquares);
+        setPlayerOneTurn(playerOneTurn === "player1" ? "player2" : "player1");
       }
     }
-    console.log(squares);
   };
 
   const handleDragOver = (e) => {
@@ -54,7 +54,7 @@ function Board() {
         ))}
       </div>
       {/* gobblet board */}
-      <div>
+      <div className="gobblet-board">
         <div className="gobblet">
           <h1 className="player-num">Player 1</h1>
           <div className="gobblet-container">

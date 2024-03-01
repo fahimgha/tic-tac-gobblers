@@ -71,6 +71,10 @@ h1 {
 
 /* Gobblet components */
 
+.gobblet-board {
+  /* display: block; */
+  width: min-content;
+}
 .gobblet {
   display: inline-flex;
   flex-direction: column;
