@@ -1,6 +1,6 @@
-function Gobblet({ gobbletSize }) {
+function Gobblet({ gobbletSize, player }) {
   const onDragStart = (e, gobblet) => {
-    e.dataTransfer.setData("gobblet", gobblet);
+    e.dataTransfer.setData("gobblet", JSON.stringify({ player, gobblet }));
   };
 
   return (
@@ -8,9 +8,8 @@ function Gobblet({ gobbletSize }) {
       className="gobblet-item"
       draggable={true}
       onDragStart={(e) => onDragStart(e, gobbletSize)}
-      onDragEnd={(e) => console.log("onDragEnd")}
     >
-      <img className="item-img" src={`./${gobbletSize}.png`} />
+      <img className="item-img" src={`./${player}_${gobbletSize}.png`} />
     </div>
   );
 }
