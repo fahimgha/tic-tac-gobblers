@@ -9,7 +9,11 @@ function Gobblet({ gobbletSize, player }) {
       draggable={true}
       onDragStart={(e) => onDragStart(e, gobbletSize)}
     >
-      <img className="item-img" src={`./${player}_${gobbletSize}.png`} />
+      <img
+        className="item-img"
+        src={`./${player}_${gobbletSize}.png`}
+        alt={gobbletSize}
+      />
     </div>
   );
 }

@@ -17,17 +17,21 @@ function Board() {
     const nextSquares = squares.slice();
     const gobblets = e.dataTransfer.getData("gobblet");
     const { player, gobblet } = JSON.parse(gobblets);
-    if (availableGobblets[player][gobblet] > 0) {
-      const updateGobbletsNum = { ...availableGobblets };
-      updateGobbletsNum[player][gobblet] -= 1;
+    const existingGobblet = nextSquares[i];
 
-      nextSquares[i] = player + "_" + gobblet;
+    if (!existingGobblet || existingGobblet.split("_")[1] > gobblet) {
+      if (availableGobblets[player][gobblet] > 0) {
+        const updateGobbletsNum = { ...availableGobblets };
+        updateGobbletsNum[player][gobblet] -= 1;
 
-      setAvailableGobblets({
-        ...availableGobblets,
-        gobbletsNum: updateGobbletsNum,
-      });
-      setSquares(nextSquares);
+        nextSquares[i] = player + "_" + gobblet;
+
+        setAvailableGobblets({
+          ...availableGobblets,
+          gobbletsNum: updateGobbletsNum,
+        });
+        setSquares(nextSquares);
+      }
     }
     console.log(squares);
   };
