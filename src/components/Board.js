@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Square from "./Square";
 import Gobblet from "./Gobblet";
+
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
+
   const [playerOneTurn, setPlayerOneTurn] = useState("player1");
 
   const [availableGobblets, setAvailableGobblets] = useState({
@@ -24,8 +26,7 @@ function Board() {
         const updateGobbletsNum = { ...availableGobblets };
         updateGobbletsNum[player][gobblet] -= 1;
 
-        nextSquares[i] = player + "_" + gobblet;
-
+        nextSquares[i] = { player, gobblet };
         setAvailableGobblets({
           ...availableGobblets,
           gobbletsNum: updateGobbletsNum,
@@ -35,10 +36,21 @@ function Board() {
       }
     }
   };
+  console.log(squares);
 
   const handleDragOver = (e) => {
     e.preventDefault();
   };
+
+  const winner = calculateWinner(squares);
+  console.log(winner);
+  let status;
+  if (winner) {
+    status = "Winner is " + (winner === "player1" ? "Player 1" : "Player 2");
+  } else {
+    status =
+      "Next player: " + (playerOneTurn === "player1" ? "Player 1" : "Player 2");
+  }
 
   return (
     <div className="Game">
@@ -55,6 +67,7 @@ function Board() {
       </div>
       {/* gobblet board */}
       <div className="gobblet-board">
+        <div>{status}</div>
         <div className="gobblet">
           <h1 className="player-num">Player 1</h1>
           <div className="gobblet-container">
@@ -86,6 +99,32 @@ function Board() {
       </div>
     </div>
   );
+}
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (
+      squares[a] &&
+      squares[b] &&
+      squares[c] &&
+      squares[a].player &&
+      squares[a].player === squares[b].player &&
+      squares[a].player === squares[c].player
+    ) {
+      return squares[a].player;
+    }
+  }
+  return null;
 }
 
 export default Board;
