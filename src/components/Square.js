@@ -1,3 +1,4 @@
+import React from "react";
 function Square({ value, handleOnDrop, handleDragOver }) {
   return (
     <div className="square" onDrop={handleOnDrop} onDragOver={handleDragOver}>

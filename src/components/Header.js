@@ -1,7 +1,13 @@
+import React from "react";
+import { QuestionMark, History } from "@mui/icons-material";
+
 function Header() {
   return (
     <div className="header">
       <div className="header-container">
+        <div className="button-rule">
+          <History />
+        </div>
         <div className="title">
           <div>Tic-tac-G</div>
           <div>
@@ -16,6 +22,9 @@ function Header() {
             </svg>
           </div>
           <div>bblers</div>
+        </div>
+        <div className="button-rule">
+          <QuestionMark />
         </div>
       </div>
     </div>

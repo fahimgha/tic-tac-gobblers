@@ -1,3 +1,4 @@
+import React from "react";
 function Gobblet({ gobbletSize, player }) {
   const onDragStart = (e, gobblet) => {
     e.dataTransfer.setData("gobblet", JSON.stringify({ player, gobblet }));

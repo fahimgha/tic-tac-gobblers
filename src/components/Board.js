@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Square from "./Square";
 import Gobblet from "./Gobblet";
 
@@ -18,10 +18,10 @@ function Board() {
     const { player, gobblet } = JSON.parse(gobblets);
     const existingGobblet = nextSquares[i];
 
-    if (player !== playerOneTurn) {
+    if (player !== playerOneTurn || calculateWinner(squares)) {
       return;
     }
-    if (!existingGobblet || existingGobblet.split("_")[1] > gobblet) {
+    if (!existingGobblet || existingGobblet.gobblet > gobblet) {
       if (availableGobblets[player][gobblet] > 0) {
         const updateGobbletsNum = { ...availableGobblets };
         updateGobbletsNum[player][gobblet] -= 1;
@@ -36,14 +36,12 @@ function Board() {
       }
     }
   };
-  console.log(squares);
 
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
   const winner = calculateWinner(squares);
-  console.log(winner);
   let status;
   if (winner) {
     status = "Winner is " + (winner === "player1" ? "Player 1" : "Player 2");
@@ -53,47 +51,51 @@ function Board() {
   }
 
   return (
-    <div className="Game">
-      {/* square board */}
-      <div className="board">
-        {squares.map((_, index) => (
-          <Square
-            key={index}
-            value={squares[index]}
-            handleOnDrop={(e) => handleOnDrop(e, index)}
-            handleDragOver={handleDragOver}
-          />
-        ))}
-      </div>
-      {/* gobblet board */}
-      <div className="gobblet-board">
-        <div>{status}</div>
-        <div className="gobblet">
-          <h1 className="player-num">Player 1</h1>
-          <div className="gobblet-container">
-            {[...Array(availableGobblets.player1.giant)].map((_, index) => (
-              <Gobblet key={index} gobbletSize="giant" player="player1" />
-            ))}
-            {[...Array(availableGobblets.player1.large)].map((_, index) => (
-              <Gobblet key={index} gobbletSize="large" player="player1" />
-            ))}
-            {[...Array(availableGobblets.player1.small)].map((_, index) => (
-              <Gobblet key={index} gobbletSize="small" player="player1" />
-            ))}
-          </div>
+    <div className="test">
+      <div className="Game">
+        {/* square board */}
+        <div className="board">
+          {squares.map((_, index) => (
+            <Square
+              key={index}
+              value={squares[index]}
+              handleOnDrop={(e) => handleOnDrop(e, index)}
+              handleDragOver={handleDragOver}
+            />
+          ))}
         </div>
-        <div className="gobblet">
-          <h1 className="player-num">Player 2</h1>
-          <div className="gobblet-container">
-            {[...Array(availableGobblets.player2.giant)].map((_, index) => (
-              <Gobblet key={index} gobbletSize="giant" player="player2" />
-            ))}
-            {[...Array(availableGobblets.player2.large)].map((_, index) => (
-              <Gobblet key={index} gobbletSize="large" player="player2" />
-            ))}
-            {[...Array(availableGobblets.player2.small)].map((_, index) => (
-              <Gobblet key={index} gobbletSize="small" player="player2" />
-            ))}
+        {/* gobblet board */}
+        <div className="gobblet-board">
+          <div className="gobblet">
+            <h1 className="player-num">Player 1</h1>
+            <div className="gobblet-container">
+              {[...Array(availableGobblets.player1.giant)].map((_, index) => (
+                <Gobblet key={index} gobbletSize="giant" player="player1" />
+              ))}
+              {[...Array(availableGobblets.player1.large)].map((_, index) => (
+                <Gobblet key={index} gobbletSize="large" player="player1" />
+              ))}
+              {[...Array(availableGobblets.player1.small)].map((_, index) => (
+                <Gobblet key={index} gobbletSize="small" player="player1" />
+              ))}
+            </div>
+          </div>
+          <div className="gobblet">
+            <h1 className="player-num">Player 2</h1>
+            <div className="gobblet-container">
+              {[...Array(availableGobblets.player2.giant)].map((_, index) => (
+                <Gobblet key={index} gobbletSize="giant" player="player2" />
+              ))}
+              {[...Array(availableGobblets.player2.large)].map((_, index) => (
+                <Gobblet key={index} gobbletSize="large" player="player2" />
+              ))}
+              {[...Array(availableGobblets.player2.small)].map((_, index) => (
+                <Gobblet key={index} gobbletSize="small" player="player2" />
+              ))}
+            </div>
+          </div>
+          <div className="status">
+            <div className={"status-container " + playerOneTurn}>{status}</div>
           </div>
         </div>
       </div>
