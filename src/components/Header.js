@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { QuestionMark, History } from "@mui/icons-material";
+import { createPortal } from "react-dom";
+import ModalHelp from "./ModalHelp";
 
 function Header() {
+  const [showModal, setShowModal] = useState(false);
+  const appContentEl = document.getElementById("App");
+
+  const handleClick = () => {
+    console.log("test");
+  };
   return (
     <div className="header">
       <div className="header-container">
@@ -23,9 +31,15 @@ function Header() {
           </div>
           <div>bblers</div>
         </div>
-        <div className="button-rule">
+        <div className="button-rule" onClick={() => setShowModal(true)}>
           <QuestionMark />
         </div>
+
+        {showModal &&
+          createPortal(
+            <ModalHelp onClose={() => setShowModal(false)} />,
+            appContentEl
+          )}
       </div>
     </div>
   );
