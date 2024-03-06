@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import { QuestionMark, History } from "@mui/icons-material";
 import { createPortal } from "react-dom";
 import ModalHelp from "./ModalHelp";
+import ModalHistory from "./ModalHistory";
 
 function Header() {
   const [showModal, setShowModal] = useState(false);
+  const [showModalHistory, setShowModalHistory] = useState(false);
   const appContentEl = document.getElementById("App");
 
-  const handleClick = () => {
-    console.log("test");
-  };
   return (
     <div className="header">
       <div className="header-container">
-        <div className="button-rule">
+        <div className="button-rule" onClick={() => setShowModalHistory(true)}>
           <History />
         </div>
         <div className="title">
@@ -34,7 +33,11 @@ function Header() {
         <div className="button-rule" onClick={() => setShowModal(true)}>
           <QuestionMark />
         </div>
-
+        {showModalHistory &&
+          createPortal(
+            <ModalHistory onClose={() => setShowModalHistory(false)} />,
+            appContentEl
+          )}
         {showModal &&
           createPortal(
             <ModalHelp onClose={() => setShowModal(false)} />,

@@ -49,7 +49,7 @@ function Board() {
     status =
       "Next player: " + (playerOneTurn === "player1" ? "Player 1" : "Player 2");
   }
-
+  console.log(winner);
   return (
     <div className="test">
       <div className="Game">
@@ -95,7 +95,18 @@ function Board() {
             </div>
           </div>
           <div className="status">
-            <div className={"status-container " + playerOneTurn}>{status}</div>
+            <div
+              className={
+                "status-container " +
+                (winner
+                  ? winner === "player1"
+                    ? "player1"
+                    : "player2"
+                  : playerOneTurn)
+              }
+            >
+              {status}
+            </div>
           </div>
         </div>
       </div>

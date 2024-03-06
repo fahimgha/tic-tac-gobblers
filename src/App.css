@@ -1,12 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@400;500;600&display=swap");
 
+:root {
+  --main-bg-color: #3a3a3c;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Outfit", sans-serif;
 }
-
 html,
 body {
   height: 100%;
@@ -23,6 +25,11 @@ h2 {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 16px;
+}
+p {
+  color: #8e8e90;
+  margin-bottom: 12px;
+  text-align: left;
 }
 .App {
   text-align: center;
@@ -62,7 +69,7 @@ h2 {
   justify-content: center;
   width: 40px;
   height: 40px;
-  background-color: #3a3a3c;
+  background-color: var(--main-bg-color);
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;
@@ -96,6 +103,9 @@ h2 {
 }
 .player2 {
   background-color: #ec5a5a;
+}
+.winner {
+  background-color: purple;
 }
 
 /* Square Components  */
@@ -171,7 +181,7 @@ h2 {
   width: 90%;
   padding: 24px;
   background: #1d1d20;
-  min-height: 420px;
+  min-height: 220px;
   max-height: 100%;
   background: #121213;
   border-radius: 8px;
@@ -179,4 +189,15 @@ h2 {
 .modal-header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+}
+.button {
+  background-color: var(--main-bg-color);
+  border-radius: 5px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
 }
