@@ -1,10 +1,13 @@
 import React from "react";
 function Square({ value, handleOnDrop, handleDragOver }) {
+  const onDragStart = (e) => {
+    e.preventDefault();
+  };
   return (
     <div
       className="square"
-      draggable={false}
       onDrop={handleOnDrop}
+      onDragStart={onDragStart}
       onDragOver={handleDragOver}
     >
       {value ? (

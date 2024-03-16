@@ -14,7 +14,9 @@ function Board() {
 
   const handleOnDrop = (e, i) => {
     const nextSquares = squares.slice();
+
     const gobblets = e.dataTransfer.getData("gobblet");
+
     const { player, gobblet } = JSON.parse(gobblets);
     const existingGobblet = nextSquares[i];
 

@@ -4,10 +4,12 @@ function ModalHistory({ onClose }) {
   return (
     <div className="setting-model">
       <div className="modal">
-        In progress
-        <button className="button" onClick={onClose}>
-          <ClearIcon />
-        </button>
+        <div className="modal-header">
+          <h2>In progress...</h2>
+          <button className="button" onClick={onClose}>
+            <ClearIcon />
+          </button>
+        </div>
       </div>
     </div>
   );
